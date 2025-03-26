@@ -1,0 +1,38 @@
+name: Build and Release
+
+on:
+  push:
+    branches:
+      - main  # Adjust this to your default branch name
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [18.x]
+        architecture: [x64, arm64]
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node-version }}
+          architecture: ${{ matrix.architecture }}
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Build binary
+        run: |
+          npm install -g pkg
+          pkg kir.js --targets node18-linux-${{ matrix.architecture }} --output kir-${{ matrix.architecture }}
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: kir-${{ matrix.architecture }}
+          path: kir-${{ matrix.architecture }}
