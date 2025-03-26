@@ -3,25 +3,20 @@ name: Build and Release
 on:
   push:
     branches:
-      - master  # Adjust this to your default branch name
+      - master
   workflow_dispatch:
 
 jobs:
-  build:
+  build-x64:
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        node-version: [18.x]
-        architecture: [x64, arm64]
     steps:
       - name: Checkout code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
 
       - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: ${{ matrix.node-version }}
-          architecture: ${{ matrix.architecture }}
+          node-version: 18.x
 
       - name: Install dependencies
         run: npm install
@@ -29,10 +24,35 @@ jobs:
       - name: Build binary
         run: |
           npm install -g pkg
-          pkg kir.js --targets node18-linux-${{ matrix.architecture }} --output kir-${{ matrix.architecture }}
+          pkg kir.js --targets node18-linux-x64 --output kir-x64
 
       - name: Upload artifact
         uses: actions/upload-artifact@v4
         with:
-          name: kir-${{ matrix.architecture }}
-          path: kir-${{ matrix.architecture }}
+          name: kir-x64
+          path: kir-x64
+
+  build-arm64:
+    runs-on: [self-hosted, ARM64]
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18.x
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Build binary
+        run: |
+          npm install -g pkg
+          pkg kir.js --targets node18-linux-arm64 --output kir-arm64
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: kir-arm64
+          path: kir-arm64
