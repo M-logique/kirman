@@ -33,7 +33,7 @@ jobs:
           path: kir-x64
 
   build-arm64:
-    runs-on: [self-hosted, ARM64]
+    runs-on: macos-latest
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
