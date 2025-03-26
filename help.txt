@@ -1,0 +1,4 @@
+Usage:
+  kir help   # shows this page
+  kir to     # installs packages (pacman -S)
+  kir biron  # uninstalls packages (pacman -R)

@@ -1,0 +1,22 @@
+{
+  "name": "kirman",
+  "version": "1.0.0",
+  "description": "Super awful pacman warpper",
+  "main": "kir.js",
+  "scripts": {
+    "test": "node kir.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sexty-nine/kirman.git"
+  },
+  "keywords": [
+    "pacman"
+  ],
+  "author": "sexty-nine",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/sexty-nine/kirman/issues"
+  },
+  "homepage": "https://github.com/sexty-nine/kirman#readme"
+}
