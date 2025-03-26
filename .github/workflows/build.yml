@@ -32,7 +32,7 @@ jobs:
           pkg kir.js --targets node18-linux-${{ matrix.architecture }} --output kir-${{ matrix.architecture }}
 
       - name: Upload artifact
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: kir-${{ matrix.architecture }}
           path: kir-${{ matrix.architecture }}
